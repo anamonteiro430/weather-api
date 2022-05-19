@@ -1,0 +1,16 @@
+@import '../../../styles/colors.scss';
+
+.divider {
+    &-baseColor {
+        background-color: $base-color;
+        height: 2px;
+        width: 100%
+    }
+
+    &-accentColor {
+        background-color: $accent-color;
+        height: 2px;
+        width: 100%;
+        margin-top: 0;
+    }
+}

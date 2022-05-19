@@ -1,0 +1,57 @@
+@import './../../../styles/colors.scss';
+
+.main {
+    color:  $accent-color;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    &-weather {
+        p {
+            text-align: center;
+            font-family: 'Lato', sans-serif;
+        }
+
+        &--today {
+            font-size: 24px;
+            margin-bottom: 12px;
+            align-self: flex-start;
+        }
+
+        &--location {
+            margin: 0;
+            font-size: 36px;
+            margin-bottom: 18px;
+
+        }
+
+        &--temperature {
+            font-size: 56px;
+            margin: 16px;
+            font-weight: 600;
+        }
+        
+        &--title {
+            text-align: center;
+            font-size: 36px;
+            margin: 16px;
+        }
+
+        &--description {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 24px;
+        }
+
+        &--icon {
+            width:100%;
+            text-align: center;
+
+            img {
+                width:50%;
+            }
+
+        }
+
+    }
+}

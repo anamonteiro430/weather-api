@@ -1,24 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import './App.scss';
+import Left from './components/Left/Left';
+import Right from './components/Right/Right';
+import { getWeatherDataForCity } from './api/api';
+import { WeatherResponse } from './interfaces/interfaces';
+import EmptyState from './components/EmptyState/EmptyState';
 
 function App() {
+  const [location, setLocation] = useState<string>("Porto")
+  const [weather, setWeather] = useState<WeatherResponse | null>(null)
+  const [isCelsius, setIsCelsius] = useState(true)
+
+  useEffect(() => {
+    (async () => {
+      const weather = await getWeatherDataForCity(location, isCelsius);
+      setWeather(weather);
+    })();
+  }, [location, isCelsius]);
+  
+
+  const handleLocation = (newLocation: string): void => {
+    setLocation(newLocation)
+  }
+
+  const handleUnits = () => {
+    setIsCelsius((prevState) => !prevState)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" >
+      <Left handleLocation={handleLocation} location={location} isCelsius={isCelsius} handleUnits={handleUnits} />
+      {weather ? <Right weatherData={weather} isCelsius={isCelsius}/> : <EmptyState />}
     </div>
   );
 }

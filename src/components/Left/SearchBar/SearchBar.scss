@@ -1,0 +1,20 @@
+.search-bar {
+    width: 60%;
+    margin-bottom: 36px;
+
+    &--container {
+        width: 100%;
+        display: flex;
+        margin-top: 8px;
+        height: 30px;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    &-button {
+        border: none;
+        background-color: #3C5D7C;
+    }
+}

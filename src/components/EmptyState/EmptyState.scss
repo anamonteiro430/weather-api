@@ -1,0 +1,11 @@
+@import '../../styles/colors.scss';
+
+.empty-state {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: $accent-color;
+    font-size: 24px;
+}

@@ -5,7 +5,6 @@ import Right from './components/Right/Right';
 import { getWeatherDataForCity } from './api/api';
 import { WeatherResponse } from './interfaces/interfaces';
 import EmptyState from './components/EmptyState/EmptyState';
-import LoadingState from './components/LoadingState/LoadingState';
 
 function App() {
   const [location, setLocation] = useState<string>("Porto")
@@ -34,7 +33,7 @@ function App() {
   return (
     <div className="App" >
       <Left handleLocation={handleLocation} location={location} isCelsius={isCelsius} handleUnits={handleUnits} />
-      {isLoading ? <LoadingState /> : weather ? <Right weatherData={weather} isCelsius={isCelsius}/> : <EmptyState />}
+      {weather ? <Right weatherData={weather} isCelsius={isCelsius}/> : <EmptyState />}
     </div>
   );
 }

@@ -5,4 +5,9 @@
   background-color: #F5EFEF;
   height: 100vh;
   font-family: 'Koulen', cursive;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: 100%;
+  }
 }

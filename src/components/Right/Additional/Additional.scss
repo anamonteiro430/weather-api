@@ -10,17 +10,28 @@
 
     &-sun {
         display: flex;
-
+        align-items: center;
     }
 
     &-sunset {
         margin-left: 56px;
 
-       
+        @media (max-width: 560px) {
+            margin-left: 24px;
+        }
+    }
+
+    &-sunset, &-sunrise {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
     }
 
     &-time {
         font-size: 24px;
     }
 
+    @media (max-width: 560px) {
+        margin: 0;
+    }
 }

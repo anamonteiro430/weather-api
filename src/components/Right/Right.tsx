@@ -1,17 +1,15 @@
-import React from 'react';
-import Additional from './Additional/Additional';
-import Main from './Main/Main';
-import './Right.scss';
-import { RightProps } from './Right.types';
+import React from "react";
+import Additional from "./Additional/Additional";
+import Main from "./Main/Main";
+import "./Right.scss";
 
-function Right({weatherData, isCelsius}: RightProps) {
+function Right() {
   return (
     <div className="right-container">
-      <Main weatherData={weatherData} isCelsius={isCelsius}/> 
-      <Additional sunrise={weatherData?.sunrise} sunset={weatherData?.sunset} />
+      <Main />
+      <Additional />
     </div>
   );
 }
 
 export default Right;
-  

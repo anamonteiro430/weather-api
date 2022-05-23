@@ -1,40 +1,74 @@
-import React, { useEffect, useState } from 'react';
-import './App.scss';
-import Left from './components/Left/Left';
-import Right from './components/Right/Right';
-import { getWeatherDataForCity } from './api/api';
-import { WeatherResponse } from './interfaces/interfaces';
-import EmptyState from './components/EmptyState/EmptyState';
+import React, { useEffect, useState } from "react";
+import "./App.scss";
+import Left from "./components/Left/Left";
+import Right from "./components/Right/Right";
+import { getWeatherDataForCity } from "./api/api";
+import { WeatherResponse } from "./interfaces/interfaces";
+import EmptyState from "./components/EmptyState/EmptyState";
+import { WeatherContext } from "./context/context";
+import { convertToUnit, WeatherUnits } from "./functions";
+import LoadingState from "./components/LoadingState/LoadingState";
 
 function App() {
-  const [location, setLocation] = useState<string>("Porto")
-  const [weather, setWeather] = useState<WeatherResponse | null>(null)
-  const [isCelsius, setIsCelsius] = useState(true)
-  const [isLoading, setIsLoading] = useState(true)
+  const [weatherData, setWeatherData] = useState<WeatherResponse | null>(null);
+  const [isCelsius, setIsCelsius] = useState(true);
+  const [location, setLocation] = useState("Porto");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    (async () => {
-      setIsLoading(true)
-      const weather = await getWeatherDataForCity(location, isCelsius);
-      setWeather(weather);
-      setIsLoading(false)
-    })();
-  }, [location, isCelsius]);
-  
+    setIsLoading(true);
+
+    setTimeout(async () => {
+      const weather = await getWeatherDataForCity(location);
+      setWeatherData(weather);
+      setIsLoading(false);
+    }, 250);
+  }, [location]);
 
   const handleLocation = (newLocation: string): void => {
-    setLocation(newLocation)
-  }
+    setLocation(newLocation);
+  };
 
-  const handleUnits = () => {
-    setIsCelsius((prevState) => !prevState)
-  }
+  const handleUnits = (currentTemperature: number) => {
+    const updatedTemperature = convertToUnit(
+      currentTemperature,
+      isCelsius ? WeatherUnits.FAHRENHEIT : WeatherUnits.CELSIUS
+    );
+    if (weatherData) {
+      let updatedWeatherData = {
+        ...weatherData,
+        weather: {
+          ...weatherData?.weather,
+          temperature: Number(updatedTemperature.toFixed(2)),
+        },
+      };
+      setWeatherData(updatedWeatherData);
+      setIsCelsius((prevState) => !prevState);
+    }
+  };
 
   return (
-    <div className="App" >
-      <Left handleLocation={handleLocation} location={location} isCelsius={isCelsius} handleUnits={handleUnits} />
-      {weather ? <Right weatherData={weather} isCelsius={isCelsius}/> : <EmptyState />}
-    </div>
+    <WeatherContext.Provider
+      value={{
+        weatherData,
+        currentLocation: location,
+        changeLocation: handleLocation,
+        isCelsius,
+        changeUnit: handleUnits,
+        isLoading,
+      }}
+    >
+      <div className="App">
+        <Left />
+        {isLoading ? (
+          <LoadingState />
+        ) : weatherData ? (
+          <Right />
+        ) : (
+          <EmptyState />
+        )}
+      </div>
+    </WeatherContext.Provider>
   );
 }
 

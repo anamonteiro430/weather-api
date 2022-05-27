@@ -52,7 +52,7 @@ function Main() {
         <Divider color={"accentColor"} />
         <p>{weatherData?.city}</p>
         <p className="main-weather--temperature">
-          {temperature}
+          {temperature?.toFixed()}
           {isCelsius ? `ºC` : `ºF`}
         </p>
         <Divider color={"accentColor"} />

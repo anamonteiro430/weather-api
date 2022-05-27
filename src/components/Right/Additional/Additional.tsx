@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Divider from "../../Shared/Divider/Divider";
 import "./Additional.scss";
 import Sunrise from "../../../assets/sunrise.svg";
-import Sunset from "../../../assets/sunrise.svg";
+import Sunset from "../../../assets/sunset.svg";
 import { WeatherContext } from "../../../context/context";
 import { getTime } from "../../../functions";
 
